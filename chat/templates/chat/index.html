@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Rooms</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'chat/index.css' %}">
+</head>
+<body>
+    <div class="left-panel">
+        <div class="left-header">
+            <h1>Chat</h1>
+            <div class="dropdown">
+                <a href="/chat/logout/">Logout</a>
+            </div>
+        </div>
+        <div class="left-body">
+            {% if history %}
+                {% for room in history %}
+                    <div class="user-room">
+                        <button class="room-button">{{ room }}</button>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-history">
+                    <p>No chat history available.</p>
+                </div>
+            {% endif %}
+        </div>
+        <div class="left-footer">
+            <input type="text" id="username" name="username" placeholder="Enter username"/>
+            <button class="create-room-button">+</button>
+        </div>
+    </div>
+    <div class="right-panel">
+        <div class="right-header">
+            <h1>{{ selected_name }}</h1>
+        </div>
+        <div class="right-body">
+            <div class="welcome-message">
+                <p>Please select a chat from the left panel to start chatting.</p>
+            </div>
+        </div>
+    </div>
+    {{ request.user.username|json_script:"current-username" }}
+    <script src="{% static 'chat/index.js' %}"></script>
+</body>
+</html>
