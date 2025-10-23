@@ -21,6 +21,7 @@ add_button.addEventListener('click', () => {
                 btn.textContent = data.username
                 left_btn_room(btn);
                 div.appendChild(btn);
+                document.querySelector('.left-body').innerHTML = '';
                 document.querySelector('.left-body').appendChild(div);
             } else {
                 alert('Username does not exist. Please try again.');
@@ -62,23 +63,31 @@ function setupRoomEvents(roomname) {
 
     chatSocket.onmessage = function(e) {
         const data = JSON.parse(e.data);
-        document.querySelector('#chat-log').value += (data.message + '\n');
+        msg_panel = document.querySelector('.right-body');
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message';
+        messageElement.textContent = data.message;
+        msg_panel.appendChild(messageElement);
+        msg_panel.scrollTop = msg_panel.scrollHeight;
     };
 
     chatSocket.onclose = function(e) {
         console.error('Chat socket closed unexpectedly');
     };
 
-    document.querySelector('#chat-message-input').focus();
-    document.querySelector('#chat-message-input').onkeyup = function(e) {
+    document.querySelector('.chat-message-input').focus();
+    document.querySelector('.chat-message-input').onkeyup = function(e) {
         if (e.key === 'Enter') {
-            document.querySelector('#chat-message-submit').click();
+            document.querySelector('.send-message-button').click();
         }
     };
 
-    document.querySelector('#chat-message-submit').onclick = function(e) {
-        const messageInputDom = document.querySelector('#chat-message-input');
+    document.querySelector('.send-message-button').onclick = function(e) {
+        const messageInputDom = document.querySelector('.chat-message-input');
         const message = messageInputDom.value;
+        if (message.trim() === '') {
+            return;
+        }
         chatSocket.send(JSON.stringify({
             'message': message
         }));
@@ -103,7 +112,8 @@ function left_btn_room(button) {
         }).then(response => response.json())
         .then(data => {
             if (data.html) {
-                document.querySelector('.right-body').innerHTML = data.html;
+                document.querySelector('.right-panel').innerHTML = data.html;
+                document.querySelector('.right-header h1').textContent = selectedname;
                 setupRoomEvents(roomname);
             } else {
                 alert('Failed to load chat room.');
