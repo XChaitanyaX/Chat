@@ -26,7 +26,7 @@ class PrivateChatConsumer(WebsocketConsumer):
         for msg in prev_messages:
             self.send(
                 text_data=json.dumps(
-                    {"message": msg.content},
+                    {"message": msg.content, "username": msg.username},
                 )
             )
 
@@ -61,4 +61,5 @@ class PrivateChatConsumer(WebsocketConsumer):
 
     def chat_message(self, event):
         message = event["message"]
-        self.send(text_data=json.dumps({"message": message}))
+        username = event["username"]
+        self.send(text_data=json.dumps({"message": message, "username": username}))
