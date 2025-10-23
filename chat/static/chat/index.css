@@ -147,6 +147,8 @@ body {
 .right-body {
     flex: 1;
     overflow-y: auto;
+    padding-left: 1%;
+    padding-right: 1%;
 }
 
 .welcome-message p {
@@ -196,12 +198,35 @@ body {
     transition: background-color 0.2s ease, transform 0.1s ease;
 }
 
-.message {
+.message-other {
+    width: -moz-fit-content;
+    width: fit-content;
+    box-sizing: border-box;
+    max-width: 40%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
     background-color: #dcf8c6;
     padding: 10px 15px;
     border-radius: 7px;
     margin-bottom: 10px;
-    max-width: 60%;
     align-self: flex-start;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+}
+
+.message-self {
+    width: -moz-fit-content;
+    width: fit-content;
+    box-sizing: border-box;
+    max-width: 40%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
+    background-color: #dcf8c6;
+    padding: 10px 15px;
+    border-radius: 7px;
+    margin-bottom: 10px;
+    align-self: flex-end;
+    margin-left: auto;
     box-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
