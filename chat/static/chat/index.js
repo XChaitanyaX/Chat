@@ -21,7 +21,9 @@ add_button.addEventListener('click', () => {
                 btn.textContent = data.username
                 left_btn_room(btn);
                 div.appendChild(btn);
-                document.querySelector('.left-body').innerHTML = '';
+                if (document.querySelector('.left-body').innerHTML.search('No chat history available.') !== -1) {
+                    document.querySelector('.left-body').innerHTML = '';
+                }
                 document.querySelector('.left-body').appendChild(div);
             } else {
                 alert('Username does not exist. Please try again.');
