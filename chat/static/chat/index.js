@@ -65,7 +65,11 @@ function setupRoomEvents(roomname) {
         const data = JSON.parse(e.data);
         msg_panel = document.querySelector('.right-body');
         const messageElement = document.createElement('div');
-        messageElement.className = 'message';
+        if (data.username === current_user) {
+            messageElement.className = 'message-self';
+        } else {
+            messageElement.className = 'message-other';
+        }
         messageElement.textContent = data.message;
         msg_panel.appendChild(messageElement);
         msg_panel.scrollTop = msg_panel.scrollHeight;
