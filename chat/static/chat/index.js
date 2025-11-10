@@ -25,6 +25,7 @@ add_button.addEventListener('click', () => {
                     document.querySelector('.left-body').innerHTML = '';
                 }
                 document.querySelector('.left-body').appendChild(div);
+                document.getElementById('username').value = '';
             } else {
                 alert('Username does not exist. Please try again.');
             }
@@ -47,6 +48,11 @@ function getCookie(name) {
 function get_room_name(name) {
     const sorted_names = [name, current_user].sort();
     return sorted_names.join('_');
+}
+
+function get_other_username(roomname) {
+    const names = roomname.split('_');
+    return names[0] === current_user ? names[1] : names[0];
 }
 
 
